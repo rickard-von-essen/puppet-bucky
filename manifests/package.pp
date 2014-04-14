@@ -26,8 +26,6 @@ class bucky::package {
 
   #### Package management
 
-  include python
-
   # set params: in operation
   if $bucky::ensure == 'present' {
 
@@ -52,10 +50,10 @@ class bucky::package {
   }
 
   # action
-  package { $bucky::params::package:
+  package { ['python-devel', 'python-pip'] :
+    ensure => installed,
+  } -> package { $bucky::params::package:
     ensure   => $package_ensure,
     provider => 'pip',
-    require  => Class['python'],
   }
-
 }
